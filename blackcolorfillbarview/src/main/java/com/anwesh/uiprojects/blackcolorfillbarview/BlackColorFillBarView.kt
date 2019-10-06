@@ -177,4 +177,26 @@ class BlackColorFillBarView(ctx : Context) : View(ctx) {
             curr.startUpdating(cb)
         }
     }
+
+    data class Renderer(var view : BlackColorFillBarView) {
+
+        private val animator : Animator = Animator(view)
+        private val bcfb : BlackColorFillBar = BlackColorFillBar(0)
+
+        fun render(canvas : Canvas, paint : Paint) {
+            canvas.drawColor(backColor)
+            bcfb.draw(canvas, paint)
+            animator.animate {
+                bcfb.update {
+                    animator.stop()
+                }
+            }
+        }
+
+        fun handleTap() {
+            bcfb.startUpdating {
+                animator.start()
+            }
+        }
+    }
 }
