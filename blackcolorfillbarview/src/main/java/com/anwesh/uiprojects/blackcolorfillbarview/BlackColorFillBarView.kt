@@ -200,4 +200,13 @@ class BlackColorFillBarView(ctx : Context) : View(ctx) {
             }
         }
     }
+
+    companion object {
+
+        fun create(activity : Activity) : BlackColorFillBarView {
+            val view : BlackColorFillBarView = BlackColorFillBarView(activity)
+            activity.setContentView(view)
+            return view
+        }
+    }
 }
