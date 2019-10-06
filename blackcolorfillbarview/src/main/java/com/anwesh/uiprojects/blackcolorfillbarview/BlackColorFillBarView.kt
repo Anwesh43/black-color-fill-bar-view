@@ -17,7 +17,7 @@ val colors : Array<String> = arrayOf("#4CAF50", "#f44336", "#3F51B5", "#E65100",
 val scGap : Float = 0.01f
 val sizeFactor : Float = 2.9f
 val backColor : Int = Color.parseColor("#BDBDBD")
-val delay : Long = 20
+val delay : Long = 5
 
 fun Int.inverse() : Float = 1f / this
 fun Float.maxScale(i : Int, n : Int) : Float = Math.max(0f, this - i * n.inverse())
