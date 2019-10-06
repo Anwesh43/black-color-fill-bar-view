@@ -22,3 +22,27 @@ val delay : Long = 20
 fun Int.inverse() : Float = 1f / this
 fun Float.maxScale(i : Int, n : Int) : Float = Math.max(0f, this - i * n.inverse())
 fun Float.divideScale(i : Int, n : Int) : Float = Math.min(n.inverse(), maxScale(i, n)) * n
+
+fun Int.red(sc: Float) : Int = (Color.red(this) * sc).toInt()
+fun Int.green(sc: Float) : Int = (Color.green(this) * sc).toInt()
+fun Int.blue(sc: Float) : Int = (Color.blue(this) * sc).toInt()
+fun Int.update(sc : Float) : Int = Color.argb(255, red(sc), green(sc), blue(sc))
+
+fun Canvas.drawBlackColorFillBar(color : Int, sc : Float, size : Float, w : Float, paint : Paint) {
+    val sc1 : Float = sc.divideScale(0, 2)
+    val sc2 : Float = sc.divideScale(1, 2)
+    val wBar : Float = size + (w - size) * sc2
+    paint.color = color.update(sc1)
+    drawRect(RectF(-wBar, -size, wBar, size), paint)
+}
+
+fun Canvas.drawBCFBNode(i : Int, sc : Float, paint : Paint) {
+    val w : Float = width.toFloat()
+    val h : Float = height.toFloat()
+    val gap : Float = h / (colors.size + 1)
+    val size : Float = gap / sizeFactor
+    save()
+    translate(w / 2, gap * (i + 1))
+    drawBlackColorFillBar(Color.parseColor(colors[i]), sc, size, w / 2, paint)
+    restore()
+}
